@@ -27,7 +27,7 @@ trees, loss_history = GradientBoostingClassifier(
     X_train,
     y_train,
     M=20,
-    max_depth=2,
+    max_depth=3,
     min_samples_split=5,
     min_samples_leaf=2,
     lr=0.1,

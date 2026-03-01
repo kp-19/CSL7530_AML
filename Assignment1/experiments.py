@@ -6,10 +6,10 @@ from GradientBoostingClassification import GradientBoostingClassifier, inference
 from sklearn.datasets import fetch_california_housing, load_iris, load_digits
 
 
-M_vals_regression = [300] # [50, 100, 200]
+M_vals_regression = [50, 100, 200]
 M_vals_classification = [10, 25, 50]
-lr_vals = [0.01, 0.05, 0.1]
-tree_depth_vals = [1,3,5]
+lr_vals = [0.01, 0.05, 0.1, 1.0]
+tree_depth_vals = [1, 3, 10]
 min_samples_leaf_vals = [1, 5, 10]
 
 def load_california_housing():
@@ -327,7 +327,7 @@ def classification_lr(lr_vals):
 
         trees, _ = GradientBoostingClassifier(
             X_train, y_train,
-            M=50,
+            M=20,
             max_depth=3,
             min_samples_leaf=5,
             lr=lr
@@ -368,7 +368,7 @@ def classification_tree_depth(tree_depth_vals):
 
         trees, _ = GradientBoostingClassifier(
             X_train, y_train,
-            M=50,
+            M=20,
             max_depth=depth,
             min_samples_split=2,
             min_samples_leaf=5,
@@ -442,7 +442,7 @@ def classification_tree_min_samples_leaf(min_samples_leaf_vals):
 
 if __name__ == "__main__":
 
-    regression_M(M_vals_regression)
+    # regression_M(M_vals_regression)
     # regression_lr(lr_vals)
     # regression_tree_depth(tree_depth_vals)
     # regression_tree_min_samples_leaf(min_samples_leaf_vals)
