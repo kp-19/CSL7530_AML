@@ -1,13 +1,13 @@
 import numpy as np
-import math
 from RegressionTree import RegressionTree
 
-def GradientBoostingRegression(X, y, M=50, max_depth=3, min_samples_split=2, min_samples_leaf=1, lr=0.01):
+def GradientBoostingRegression(X, y, M=50, max_depth=3, min_samples_split=2, min_samples_leaf=1, lr=0.01, save_loss_interval=2):
 
     f0 = np.mean(y)         # initial model
     N = X.shape[0]          # no of training samples
     F = np.full(N, f0)      # predictions vector
     trees = []              # list of trees
+    loss_history = []
 
     for m in range(M):
         # pseudo-residuals:
@@ -20,9 +20,14 @@ def GradientBoostingRegression(X, y, M=50, max_depth=3, min_samples_split=2, min
 
         trees.append(tree)
 
-    return f0, trees, lr
+        # Save training loss
+        if (m + 1) % save_loss_interval == 0:
+            mse = np.mean((y - F) ** 2)
+            loss_history.append(mse)
 
-def inference(X, f0, trees, lr):
+    return f0, trees, lr, loss_history
+
+def inference_regression(X, f0, trees, lr):
 
     N = X.shape[0]          
     F = np.full(N, f0)      

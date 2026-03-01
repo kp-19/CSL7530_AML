@@ -1,5 +1,4 @@
 import numpy as np
-import math
 
 class TreeNode:
     def __init__(self, feature_index=None, threshold=None, left=None, right=None, value=None):
@@ -106,6 +105,19 @@ class RegressionTree:
         else:
             return self._predict_sample(x, node.right)
         
+    def get_leaf_indices(self, X):
+        leaf_dict = {}
+        for i, x in enumerate(X):
+            node = self.root
+            while not node.is_leaf():
+                if x[node.feature_index] <= node.threshold:
+                    node = node.left
+                else:
+                    node = node.right
+            if node not in leaf_dict:
+                leaf_dict[node] = []
+            leaf_dict[node].append(i)
+        return leaf_dict        
 
 # if __name__ == "__main__":
 #     import matplotlib.pyplot as plt
